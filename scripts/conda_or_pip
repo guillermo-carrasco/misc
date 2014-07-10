@@ -4,10 +4,11 @@ import argparse
 
 from subprocess import check_output, check_call, CalledProcessError
 
-def install(package):
+def install(package, force_yes):
     """ Installs a package with conda if availabe, with pip otherwise.
 
     :param: package: String - The package to install
+    :param: force_yes: Boolean - Non-interactive installation
     """
     out = check_output(['conda', 'search', package])
     try:
@@ -16,7 +17,12 @@ def install(package):
             check_call(['pip', 'install', package])
         else:
             print "Package found! Installing with conda"
-            check_call(['conda', 'install', package])
+            cl = []
+            if force_yes:
+                check_call(['conda', 'install', '--yes', package])
+            else:
+                check_call(['conda', 'install', package])
+
     except CalledProcessError:
         raise RuntimeError('Package not found neither in conda nor pip, sorry!')
 
@@ -25,5 +31,6 @@ if __name__=='__main__':
     parser = argparse.ArgumentParser(description='Install packages with conda and, ' \
             'if they are not available, do it with pip.')
     parser.add_argument('package', type=str, help='Package to install')
+    parser.add_argument('--yes', action='store_true', help='Non-interactive installation')
     args = parser.parse_args()
-    install(args.package)
+    install(args.package, args.yes)
