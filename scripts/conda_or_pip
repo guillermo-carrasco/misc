@@ -20,7 +20,6 @@ def install(package, force_yes):
             check_call(['pip', 'install', package])
         else:
             logging.info("Package found! Installing with conda")
-            cl = []
             if force_yes:
                 check_call(['conda', 'install', '--yes', package])
             else:
