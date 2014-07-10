@@ -7,13 +7,14 @@ Will try to install a python package through [conda](http://continuum.io/downloa
 if not founs, will install it through pip. 
 
 ```
-usage: conda_or_pip [-h] package
+usage: conda_or_pip [-h] [--yes] package
 
 Install packages with conda and, if they are not available, do it with pip.
 
 positional arguments:
   package     Package to install
 
-  optional arguments:
-    -h, --help  show this help message and exit
+optional arguments:
+  -h, --help  show this help message and exit
+  --yes       Non-interactive installation
 ```
