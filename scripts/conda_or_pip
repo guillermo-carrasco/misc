@@ -1,0 +1,29 @@
+#!/usr/bin/python
+
+import argparse
+
+from subprocess import check_output, check_call, CalledProcessError
+
+def install(package):
+    """ Installs a package with conda if availabe, with pip otherwise.
+
+    :param: package: String - The package to install
+    """
+    out = check_output(['conda', 'search', package])
+    try:
+        if not out:
+            print "Package not found in conda repository, installing it through pip"
+            check_call(['pip', 'install', package])
+        else:
+            print "Package found! Installing with conda"
+            check_call(['conda', 'install', package])
+    except CalledProcessError:
+        raise RuntimeError('Package not found neither in conda nor pip, sorry!')
+
+
+if __name__=='__main__':
+    parser = argparse.ArgumentParser(description='Install packages with conda and, ' \
+            'if they are not available, do it with pip.')
+    parser.add_argument('package', type=str, help='Package to install')
+    args = parser.parse_args()
+    install(args.package)
