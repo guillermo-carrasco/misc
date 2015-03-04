@@ -39,29 +39,32 @@ def find_rivers_wrtfile(f,id):
                 ends, way = find_rivers_rec(id, v, way={})
                 if ends:
                     enders.append(k)
+        all_floats = False
         for float_field in [3, 5, 7, 9]:#Son les columnes que es volen calcular
             try:
                 float(rivers[id][float_field])
             except ValueError:
-                print "Faltan datos para el rio {}".format(str(id))
+                print ValueError("Faltan datos para el rio {}".format(str(id)))
             else:
-                f.write(id)
-                f.write(';')
-                totalcatchment = float(rivers[id][2]) + sum(float(rivers[k][2]) for k in enders)
-                f.write(str(totalcatchment))
-                f.write(';')
-                dure = float(rivers[id][4])*float(rivers[id][2]) + sum(float(rivers[k][4]) * float(rivers[k][2])for k in enders)
-                f.write(str(dure/totalcatchment))
-                f.write(';')
-                srd = float(rivers[id][5])*float(rivers[id][2]) + sum(float(rivers[k][5]) * float(rivers[k][2])for k in enders)
-                f.write(str(srd/totalcatchment))
-                f.write(';')
-                dird = float(rivers[id][8])*float(rivers[id][2]) + sum(float(rivers[k][8]) * float(rivers[k][2])for k in enders)
-                f.write(str(dird/totalcatchment))
-                f.write(';')
-                difd = float(rivers[id][9])*float(rivers[id][2]) + sum(float(rivers[k][9]) * float(rivers[k][2])for k in enders)
-                f.write(str(difd/totalcatchment))
-                f.write('\n')
+                all_floats = True
+        if all_floats:
+            f.write(id)
+            f.write(';')
+            totalcatchment = float(rivers[id][2]) + sum(float(rivers[k][2]) for k in enders)
+            f.write(str(totalcatchment))
+            f.write(';')
+            dure = float(rivers[id][4])*float(rivers[id][2]) + sum(float(rivers[k][4]) * float(rivers[k][2])for k in enders)
+            f.write(str(dure/totalcatchment))
+            f.write(';')
+            srd = float(rivers[id][5])*float(rivers[id][2]) + sum(float(rivers[k][5]) * float(rivers[k][2])for k in enders)
+            f.write(str(srd/totalcatchment))
+            f.write(';')
+            dird = float(rivers[id][8])*float(rivers[id][2]) + sum(float(rivers[k][8]) * float(rivers[k][2])for k in enders)
+            f.write(str(dird/totalcatchment))
+            f.write(';')
+            difd = float(rivers[id][9])*float(rivers[id][2]) + sum(float(rivers[k][9]) * float(rivers[k][2])for k in enders)
+            f.write(str(difd/totalcatchment))
+            f.write('\n')
 
 ########################### MAIN
             #Escriu els resultats en la taula
