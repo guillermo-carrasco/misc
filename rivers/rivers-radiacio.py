@@ -5,7 +5,11 @@ rivers = {}
 
 # Guardamos los rios en un hash para acceder mas rapidamente
 for d in data:
-    rivers[d[0]] = d
+    try:
+        int(d[0])
+        rivers[d[0]] = d
+    except ValueError:
+        pass
 
 
 def find_rivers_rec(id, river, ends=False, way={}):
