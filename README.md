@@ -3,8 +3,8 @@
 ### Installed standalone scripts
 
 ##### conda_or_pip
-Will try to install a python package through [conda](http://continuum.io/downloads) and, 
-if not founs, will install it through pip. 
+Will try to install a python package through [conda](http://continuum.io/downloads) and,
+if not founs, will install it through pip.
 
 ```
 usage: conda_or_pip [-h] [--yes] package
@@ -18,3 +18,7 @@ optional arguments:
   -h, --help  show this help message and exit
   --yes       Non-interactive installation
 ```
+
+#### pool.py
+
+Is just a simple example of Python process pool
