@@ -1,3 +1,5 @@
+-- Instructions here: https://github.com/guillermo-carrasco/misc/blob/master/scripts/autoconnect_vpn.md
+
 -- Please set your vpn connection name and password here
 set VPNName to "your VPN name"
 set VPNpassword to "your VPN password"
