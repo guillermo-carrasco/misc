@@ -18,3 +18,10 @@ bottom left small lock. Finally drag and drop the newly created app to the list 
 
 You're done, now, by typing `CMD + space + <name_you_gave_to_the_application>` you
 should automatically connect to the VPN.
+
+<hr />
+
+##TO fix
+_The application doesn't close after connecting to the vpn and can't be gracefully
+quit neither. You need to force quit it through the menu. Its not a problem, but its
+annoying... OCD_
