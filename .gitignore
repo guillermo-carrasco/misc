@@ -2,3 +2,5 @@ build
 dist
 *pyc
 misc.egg*
+*.out
+*.err
