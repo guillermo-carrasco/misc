@@ -38,8 +38,11 @@ def init_logging(log_file=None):
 def time_command(command, suffix=''):
     """Executes command and returns the elapsed time"""
     _command = command.split()
-    with open("{}{}.out".format(_command[0], suffix), 'w') as out, \
-            open("{}{}.err".format(_command[0], suffix), 'w') as err:
+    command_name = _command[0]
+    if os.path.isabs(command_name):
+        command_name = os.path.split(command_name)[1]
+    with open("{}{}.out".format(command_name, suffix), 'w') as out, \
+            open("{}{}.err".format(command_name, suffix), 'w') as err:
         start_time = time.time()
         check_call(_command, stdout=out, stderr=err)
         return time.time() - start_time
@@ -58,11 +61,14 @@ if __name__=='__main__':
 
     logging.info("Benchmarking command: {}".format(args.command))
     res = OrderedDict()
+    command_name = args.command.split()[0]
+    if os.path.isabs(command_name):
+        command_name = os.path.split(command_name)[1]
     for i in range(1, args.num_executions + 1):
         logging.info("Running execution #{}...".format(str(i)))
         res[i] = time_command(args.command, suffix=str(i))
         logging.info("Took {}".format(str(datetime.timedelta(seconds=res[i]))))
 
-    with open('{}_results.json'.format(args.command.split()[0]), 'w') as f:
+    with open('{}_results.json'.format(command_name), 'w') as f:
         json.dump(res, f, indent=4)
     logging.info("Mean elapsed time: {}".format(str(sum(res.values())/len(res))))
